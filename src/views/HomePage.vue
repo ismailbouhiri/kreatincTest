@@ -110,6 +110,9 @@ export default {
     currentPage() {
       this.getData();
     },
+    $route() {
+      console.log("HomePage");
+    }
   },
   methods: {
     addToWatchList(added, movieId, imgUrl, movieTitle, ratingNote) {

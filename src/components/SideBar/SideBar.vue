@@ -40,17 +40,19 @@
           </button>
         </div>
         <div class="offcanvas-body">
-          <div
+          <form
+            @submit.prevent="searchBy"
             class="SearchBox border rounded-pill mb-4 d-flex px-2 align-items-center"
           >
             <i class="fa fa-search fs-6 ms-2" aria-hidden="true"></i>
             <input
+              v-model="search"
               @click="hideIcon"
               class="align-self-end ps-2"
               type="text"
               placeholder="Search"
             />
-          </div>
+        </form>
           <div class="menu">
             <router-link class="button" to="/watchlist">
               <div class="mynav-item" @click="ToggleWatchList">
@@ -86,12 +88,23 @@ export default {
   data() {
     return {
       show_filtre: true,
+      search: ''
     };
   },
   components: {
     FiltreSection,
   },
   methods: {
+    searchBy()
+    {
+      if (this.search)
+        this.$router.push({ path: this.$route.path, query: { search: this.search }});
+      else if (this.$route.query)
+        this.$router.push({ path: this.$route.path});
+
+
+      
+    },
     ToggleFiltre() {
       this.show_filtre = !this.show_filtre;
     },
