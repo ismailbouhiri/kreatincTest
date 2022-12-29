@@ -50,7 +50,7 @@
               @click="hideIcon"
               class="align-self-end ps-2"
               type="text"
-              placeholder="Search"
+              placeholder="Search by title"
             />
         </form>
           <div class="menu">

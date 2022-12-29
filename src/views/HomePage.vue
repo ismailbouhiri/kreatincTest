@@ -1,6 +1,27 @@
 <template>
   <main>
-    <div>
+    <div v-if="searchFor" class="m-5">
+      <h3 >Search results for: {{ searchFor }}</h3>
+      <h5 v-if="!searchResult">No results founded</h5>
+      <div class="d-flex justify-content-center flex-wrap">
+        <MovieCard
+            class="m-4"
+            v-for="(movie, index) in searchResult"
+            :key="index"
+            :imgUrl="movie.imgUrl"
+            :movieTitle="movie.movieTitle"
+            :rating="movie.ratingNote"
+            :id="movie.movieId"
+            :AddWatchList="
+              (added, id, img, title, note) => {
+                addToWatchList(added, id, img, title, note);
+              }
+            "
+        />
+      </div>
+
+    </div>
+    <div v-if="!searchFor">
       <h4 class="fw-semibold">Best Rating</h4>
       <div class="mt-4">
         <BestRating
@@ -97,6 +118,8 @@ export default {
       currentPage: 1,
       movies: {},
       watchList: {},
+      searchFor: "",
+      searchResult: [],
     };
   },
   components: {
@@ -111,10 +134,35 @@ export default {
       this.getData();
     },
     $route() {
-      console.log("HomePage");
+        this.searchFor = this.$route.query.search;
+        this.SearchforMovie();
     }
   },
   methods: {
+    async SearchforMovie() {
+      await axios
+        .get(
+          'https://api.themoviedb.org/3/search/movie?api_key=c3995fba79fbed18d0cfdab2ef0845ff&query=' + this.searchFor
+        )
+        .then((response) => {
+          console.log(response);
+          for (let i = 0; i < response.data.results.length ; i++) {
+            if ( response.data.results[i].poster_path)
+            {
+              this.searchResult.push({
+                imgUrl:
+                  "https://image.tmdb.org/t/p/original/" +
+                  response.data.results[i].poster_path,
+                movieTitle: response.data.results[i].title,
+                ratingNote: response.data.results[i].vote_average,
+                movieId: response.data.results[i].id,
+              });
+            }
+          }
+        }).catch((err) => {
+          console.log(err);
+        });
+    },
     addToWatchList(added, movieId, imgUrl, movieTitle, ratingNote) {
       let arrayString = localStorage.getItem("WatchList") || {};
       if (added) {
@@ -122,13 +170,11 @@ export default {
         let myArray = JSON.parse(arrayString);
         myArray[movieId] = [];
         myArray[movieId].push({ imgUrl, movieTitle, ratingNote });
-        console.log(myArray);
         localStorage.setItem("WatchList", JSON.stringify(myArray));
       } else {
         // deletefrom watch list
         let myArray = JSON.parse(arrayString);
         delete myArray[movieId];
-        console.log(myArray);
         localStorage.setItem("WatchList", JSON.stringify(myArray));
       }
     },
@@ -154,7 +200,7 @@ export default {
               this.currentPage
           )
           .then((response) => {
-            for (let i = 0; i < response.data.results.length; i++) {
+            for (let i = 0; i < 18; i++) {
               this.movies[this.currentPage].push({
                 imgUrl:
                   "https://image.tmdb.org/t/p/original/" +

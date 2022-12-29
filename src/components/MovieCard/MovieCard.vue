@@ -76,6 +76,7 @@ export default {
     left: 5px;
     width: 60px;
     span {
+      color:var(--light-silver);
       font-size: 18px;
       font-weight: 600;
       margin-left: 1px;

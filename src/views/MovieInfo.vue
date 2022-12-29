@@ -82,7 +82,6 @@ export default {
           "?api_key=c3995fba79fbed18d0cfdab2ef0845ff"
       )
       .then((response) => {
-        console.log();
         this.movie.push({
           imgUrl:
             "https://image.tmdb.org/t/p/original/" + response.data.poster_path,
@@ -98,9 +97,9 @@ export default {
       .catch((res) => {
         console.log(res);
       });
-    console.log(this.movie);
   },
 };
+
 </script>
 <style lang="scss" scoped>
 .page {

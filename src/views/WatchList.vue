@@ -29,7 +29,6 @@ export default {
   computed: {
     filtreWatchList() {
       let filtredMovie = Object.values(this.movies).filter((movie) => {
-        console.log(movie);
         return !this.searchFor
           ? movie
           : movie[0].movieTitle
@@ -52,13 +51,11 @@ export default {
         let myArray = JSON.parse(arrayString);
         myArray[movieId] = [];
         myArray[movieId].push({ movieId, imgUrl, movieTitle, ratingNote });
-        console.log(myArray);
         localStorage.setItem("WatchList", JSON.stringify(myArray));
       } else {
         // deletefrom watch list
         let myArray = JSON.parse(arrayString);
         delete myArray[movieId];
-        console.log(myArray);
         localStorage.setItem("WatchList", JSON.stringify(myArray));
       }
     },
