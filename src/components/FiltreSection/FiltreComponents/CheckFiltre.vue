@@ -14,7 +14,7 @@
             v-model="selections"
             class="form-check-input me-1 rounded-pill category"
             type="checkbox"
-            :value="category.name"
+            :value="category.id"
             :id="category.id"
           />
           {{ category.name }}
@@ -29,7 +29,7 @@ import FiltreTitle from "./FiltreTitle.vue";
 export default {
   props: {
     categories: {
-      type: Object,
+      type: Array,
       required: true,
     },
     titlefiltre: {
@@ -46,8 +46,8 @@ export default {
     FiltreTitle,
   },
   watch:{
-    selections(newValue){
-      console.log(newValue);
+    selections(){
+      this.$emit('filtreSelected', this.titlefiltre, this.selections)
     }
   }
 

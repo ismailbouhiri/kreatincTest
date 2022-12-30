@@ -1,12 +1,17 @@
 <template>
-
   <div class="w-100 text-start filtres">
-    <CheckFiltre :categories="categories" :titlefiltre="'Category'"/>
-    <RatingFiltre />
-    <CheckFiltre :categories="languages" :titlefiltre="'Languages'" />
-    <ButtonCustom class="mt-2" style="margin: 50px"
-      >Apply Filtres</ButtonCustom
-    >
+    <CheckFiltre
+      :categories="categories"
+      :titlefiltre="'Category'"
+      @filtreSelected="receiveData"
+    />
+    <RatingFiltre  @filtreSelected="receiveData"/>
+    <CheckFiltre
+      :categories="languages"
+      :titlefiltre="'Languages'"
+      @filtreSelected="receiveData"
+    />
+    <ButtonCustom @click="sendData" class="mt-2" style="margin: 50px">Apply Filtres</ButtonCustom>
   </div>
 </template>
 
@@ -29,11 +34,11 @@ export default {
       {id: "ar", name: "Arabic"},
       {id: "fr", name: "French"},
       ],
-      selectionsFiltre: {
-        categories:[],
-        languages:[],
-        rating: 0
-      }
+      selectionsFicltre: [
+        [],
+        [],
+        0
+      ]
     };
   },
   components: {
@@ -41,11 +46,16 @@ export default {
     RatingFiltre,
     ButtonCustom,
   },
-  // methods:{
-  //   receiveData(field, value){
-  //     selectionsFiltre.s
-  //   }
-  // }
+  methods:{
+    receiveData(field, value){
+      let index = (field === "Category") ? 0: (field === "Languages") ? 1: 2;
+      this.selectionsFicltre[index] = value;
+    },
+    sendData()
+    {
+      this.$emit('filtre', this.selectionsFicltre);
+    }
+  }
 };
 </script>
 

@@ -3,9 +3,10 @@
   <div class="collapse" id="Rating">
     <div class="rating-wrapper ms-3 ps-4">
       <input
+        v-model="stars"
         type="radio"
         id="star1"
-        value="1"
+        value="5"
       />
       <label
         for="star1"
@@ -14,9 +15,10 @@
         <i class="fas fa-star d-inline-block"></i>
       </label>
      <input
+        v-model="stars"
         type="radio"
         id="star2"
-        value="2"
+        value="4"
       />
       <label
         for="star2"
@@ -25,6 +27,7 @@
         <i class="fas fa-star d-inline-block"></i>
       </label>
       <input
+        v-model="stars"
         type="radio"
         id="star3"
         value="3"
@@ -37,9 +40,10 @@
       </label>
 
       <input
+        v-model="stars"
         type="radio"
         id="star4"
-        value="4"
+        value="2"
       />
       <label
         for="star4"
@@ -49,8 +53,9 @@
       </label>
 
       <input
+        v-model="stars"
         type="radio"
-        value="5"
+        value="1"
         id="star5"
       />
       <label
@@ -69,11 +74,17 @@ import FiltreTitle from "./FiltreTitle.vue";
 export default {
   data() {
     return {
+      stars: ''
     };
   },
   components: {
     FiltreTitle,
   },
+  watch:{
+    stars(){
+      this.$emit('filtreSelected', "rating", this.stars)
+    }
+  }
 };
 </script>
 
@@ -86,10 +97,6 @@ export default {
     font-size: 1rem;
     padding: 0.3rem;
     transition: color 0.5s;
-    // @media(max-width: 380px){
-    //   font-size: 14px;
-    //   // padding: 0.1rem;
-    // }
   }
 
   input {

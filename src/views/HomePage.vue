@@ -54,7 +54,7 @@
             <div class="modal-content bg-dark">
               <transition>
                 <div class="P-4">
-                  <FiltreSection />
+                  <FiltreSection @filtre="filtreBy" />
                 </div>
               </transition>
             </div>
@@ -63,7 +63,7 @@
       </div>
       <div class="gap-5 mt-4 d-flex flex-wrap justify-content-center">
         <MovieCard
-          v-for="(movie, index) in movies[currentPage]"
+          v-for="(movie, index) in filtreData"
           :key="index"
           :imgUrl="movie.imgUrl"
           :movieTitle="movie.movieTitle"
@@ -152,6 +152,7 @@ export default {
       watchList: {},
       searchFor: "",
       searchResult: [],
+      filtres: [],
     };
   },
   components: {
@@ -174,12 +175,35 @@ export default {
       this.SearchforMovie();
     },
   },
+  computed: {
+    filtreData() {
+      let filtredMovie = this.movies[this.currentPage].filter((movie) => {
+        return !this.filtres.length ||
+          (!this.filtres[0].length &&
+            !this.filtres[1].length &&
+            !this.filtres[2])
+          ? movie
+          : movie.genre_ids.some((id) => {
+              if (this.filtres[0].includes(id)) return true;
+              return false;
+            }) ||
+              this.filtres[1].includes(movie.languages) ||
+              (parseInt(this.filtres[2]) &&
+                parseInt(this.filtres[2]) * 2 <= parseInt(movie.ratingNote));
+      });
+      return filtredMovie;
+    },
+  },
   methods: {
+    filtreBy(data) {
+      this.filtres = data;
+    },
     async SearchforMovie() {
-      
       await axios
         .get(
-          "https://api.themoviedb.org/3/search/movie?api_key=" + process.env.VUE_APP_API_KEY + "&query=" +
+          "https://api.themoviedb.org/3/search/movie?api_key=" +
+            process.env.VUE_APP_API_KEY +
+            "&query=" +
             this.searchFor
         )
         .then((response) => {
@@ -233,7 +257,9 @@ export default {
         this.movies[this.currentPage] = [];
         await axios
           .get(
-            "http://api.themoviedb.org/3/movie/popular?api_key=" + process.env.VUE_APP_API_KEY + "&page=" +
+            "http://api.themoviedb.org/3/movie/popular?api_key=" +
+              process.env.VUE_APP_API_KEY +
+              "&page=" +
               this.currentPage
           )
           .then((response) => {
@@ -245,7 +271,8 @@ export default {
                 movieTitle: response.data.results[i].title,
                 ratingNote: response.data.results[i].vote_average,
                 movieId: response.data.results[i].id,
-                // overview: response.data.results[i].overview,
+                languages: response.data.results[i].original_language,
+                genre_ids: response.data.results[i].genre_ids,
               });
             }
           });
