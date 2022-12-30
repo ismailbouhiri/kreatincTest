@@ -47,10 +47,13 @@ export default {
     },
   },
   mounted(){
-    let arrayString = localStorage.getItem("WatchList") || {};
-    let myArray = JSON.parse(arrayString);
-    if (myArray[this.id]) {
-      this.added = true;
+    let arrayString = localStorage.getItem("WatchList");
+    if (arrayString)
+    {
+      let myArray = JSON.parse(arrayString);
+      if (myArray[this.id]) {
+        this.added = true;
+      }
     }
   },
   data() {
@@ -113,10 +116,6 @@ export default {
     background-image: url('../../../public/assets/movie.jpg');
     height: 350px;
     border-radius: 5px 5px 0px 0px;
-    // height: 300px;
-    // background-size: cover;
-    // background-repeat: no-repeat;
-
   }
 }
   .link{

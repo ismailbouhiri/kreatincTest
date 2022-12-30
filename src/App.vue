@@ -1,16 +1,16 @@
 <template>
   <div class="app">
-    <SideBar />
+    <nav-bar />
     <router-view />
   </div>
 </template>
 
 <script>
-import SideBar from "@/components/SideBar/SideBar.vue";
+import NavBar from "@/components/NavBar/NavBar.vue";
 export default {
   name: "App",
   components: {
-    SideBar,
+    NavBar,
   },
 };
 </script>
@@ -32,7 +32,6 @@ export default {
   {
     background: none;
     border: none;
-    // background: var(--vampire-black);
   }
 
   body {
@@ -41,15 +40,5 @@ export default {
 
   .app {
     background-color: var(--davys-grey);
-    display: flex;
-
-    main {
-      flex: 1 1 0;
-      padding: 5rem;
-
-      @media (max-width: 768px) {
-        padding-left: 6rem;
-      }
-    }
   }
 </style>

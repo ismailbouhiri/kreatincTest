@@ -87,7 +87,7 @@ export default {
     async getData() {
       await axios
         .get(
-          "http://api.themoviedb.org/3/movie/top_rated?api_key=c3995fba79fbed18d0cfdab2ef0845ff"
+          "http://api.themoviedb.org/3/movie/top_rated?api_key="+ process.env.VUE_APP_API_KEY
         )
         .then((response) => {
           for (let i = 0; i < response.data.results.length; i++) {

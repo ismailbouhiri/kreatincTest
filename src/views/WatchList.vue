@@ -1,20 +1,22 @@
 <template>
-  <main class="d-flex flex-wrap justify-content-center">
-    <MovieCard
-      class="m-4"
-      v-for="(movie, index) in filtreWatchList"
-      :key="movie[0].movieId"
-      :imgUrl="movie[0].imgUrl"
-      :movieTitle="movie[0].movieTitle"
-      :rating="movie[0].ratingNote"
-      :id="index"
-      :AddWatchList="
-        (added, id, img, title, note) => {
-          addToWatchList(added, id, img, title, note);
-        }
-      "
-    />
-  </main>
+  <div class="page">
+    <main v-if="movies" class="d-flex flex-wrap justify-content-center">
+      <MovieCard
+        class="m-4"
+        v-for="(movie, index) in filtreWatchList"
+        :key="movie[0].movieId"
+        :imgUrl="movie[0].imgUrl"
+        :movieTitle="movie[0].movieTitle"
+        :rating="movie[0].ratingNote"
+        :id="index"
+        :AddWatchList="
+          (added, id, img, title, note) => {
+            addToWatchList(added, id, img, title, note);
+          }
+        "
+      />
+    </main>
+  </div>
 </template>
 
 <script>
@@ -64,14 +66,18 @@ export default {
     MovieCard,
   },
   created() {
-    let arrayString = localStorage.getItem("WatchList") || {};
-    this.movies = JSON.parse(arrayString);
+    let arrayString = localStorage.getItem("WatchList");
+    if (arrayString) {
+      this.movies = JSON.parse(arrayString); 
+    }
   },
 };
 </script>
 
 <style lang="scss" scoped>
-main {
+.page {
+  color: var(--light-silver);
+  height: 100vh;
   background: var(--vampire-black);
 }
 </style>

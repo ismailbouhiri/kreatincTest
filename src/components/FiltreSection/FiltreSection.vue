@@ -1,7 +1,7 @@
 <template>
 
   <div class="w-100 text-start filtres">
-    <CheckFiltre :categories="categories" :titlefiltre="'Category'" />
+    <CheckFiltre :categories="categories" :titlefiltre="'Category'"/>
     <RatingFiltre />
     <CheckFiltre :categories="languages" :titlefiltre="'Languages'" />
     <ButtonCustom class="mt-2" style="margin: 50px"
@@ -18,8 +18,22 @@ import RatingFiltre from "./FiltreComponents/RatingFiltre.vue";
 export default {
   data() {
     return {
-      categories: ["Romantic", "Action", "Comedy"],
-      languages: ["Arabic", "French", "English"],
+      categories: [
+        {id: 0, name: "Action"},
+        {id: 12, name: "Adventure"},
+        {id: 35, name: "Comedy"},
+        {id: 18, name: "Drama"},
+      ],
+      languages: [
+      {id: "en", name: "English"},
+      {id: "ar", name: "Arabic"},
+      {id: "fr", name: "French"},
+      ],
+      selectionsFiltre: {
+        categories:[],
+        languages:[],
+        rating: 0
+      }
     };
   },
   components: {
@@ -27,6 +41,11 @@ export default {
     RatingFiltre,
     ButtonCustom,
   },
+  // methods:{
+  //   receiveData(field, value){
+  //     selectionsFiltre.s
+  //   }
+  // }
 };
 </script>
 

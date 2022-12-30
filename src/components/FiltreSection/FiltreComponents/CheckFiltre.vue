@@ -1,25 +1,27 @@
 <template>
   <FiltreTitle :titlefiltre="titlefiltre" />
-  <div class="collapse" :id="titlefiltre">
+  <form
+    @submit.prevent="selectAnswer"
+    class="collapse" :id="titlefiltre">
     <ul class="ms-3 mt-2">
       <li
         class="list-group-item mt-2"
         v-for="(category, index) in categories"
         :key="{ index }"
       > 
-        <!-- {{ test() }} -->
-        <label class="form-check-label" :for="category + index">
+        <label class="form-check-label" :for="category.id">
           <input
+            v-model="selections"
             class="form-check-input me-1 rounded-pill category"
             type="checkbox"
-            :value="category"
-            :id="category + index"
+            :value="category.name"
+            :id="category.id"
           />
-          {{ category }}
+          {{ category.name }}
         </label>
       </li>
     </ul>
-  </div>
+  </form>
 </template>
 
 <script>
@@ -27,7 +29,7 @@ import FiltreTitle from "./FiltreTitle.vue";
 export default {
   props: {
     categories: {
-      type: Array,
+      type: Object,
       required: true,
     },
     titlefiltre: {
@@ -35,9 +37,19 @@ export default {
       required: true,
     },
   },
+  data(){
+    return {
+      selections: []
+    }
+  },
   components: {
     FiltreTitle,
   },
+  watch:{
+    selections(newValue){
+      console.log(newValue);
+    }
+  }
 
 };
 </script>

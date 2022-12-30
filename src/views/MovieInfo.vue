@@ -60,7 +60,7 @@
 
   <div v-else class="d-flex flex-column justify-content-center">
     <h1 class="text-center m-5 text-white">Movie not found</h1>
-    <img src="../assets/Monster404.svg" class="" alt="404 picture" />
+    <img src="../assets/Monster404.svg" class="errimg" alt="404 picture" />
   </div>
   <!-- </div> -->
 </template>
@@ -79,7 +79,7 @@ export default {
       .get(
         "https://api.themoviedb.org/3/movie/" +
           this.$route.params.id +
-          "?api_key=c3995fba79fbed18d0cfdab2ef0845ff"
+          "?api_key=" + process.env.VUE_APP_API_KEY
       )
       .then((response) => {
         this.movie.push({
@@ -118,6 +118,9 @@ export default {
     min-width: 12rem;
     max-width: 28rem;
   }
+}
+.errimg {
+  max-width: 24rem;
 }
 // .mycontainer {
 //   padding: 2rem;

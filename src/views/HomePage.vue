@@ -1,25 +1,24 @@
 <template>
   <main>
     <div v-if="searchFor" class="m-5">
-      <h3 >Search results for: {{ searchFor }}</h3>
-      <h5 v-if="!searchResult">No results founded</h5>
-      <div class="d-flex justify-content-center flex-wrap">
+      <h3>Search results for: {{ searchFor }}</h3>
+      <h5 v-if="!searchResult.length">No results founded</h5>
+      <div v-else class="d-flex justify-content-center flex-wrap">
         <MovieCard
-            class="m-4"
-            v-for="(movie, index) in searchResult"
-            :key="index"
-            :imgUrl="movie.imgUrl"
-            :movieTitle="movie.movieTitle"
-            :rating="movie.ratingNote"
-            :id="movie.movieId"
-            :AddWatchList="
-              (added, id, img, title, note) => {
-                addToWatchList(added, id, img, title, note);
-              }
-            "
+          class="m-4"
+          v-for="(movie, index) in searchResult"
+          :key="index"
+          :imgUrl="movie.imgUrl"
+          :movieTitle="movie.movieTitle"
+          :rating="movie.ratingNote"
+          :id="movie.movieId"
+          :AddWatchList="
+            (added, id, img, title, note) => {
+              addToWatchList(added, id, img, title, note);
+            }
+          "
         />
       </div>
-
     </div>
     <div v-if="!searchFor">
       <h4 class="fw-semibold">Best Rating</h4>
@@ -32,7 +31,36 @@
           "
         />
       </div>
-      <h4 class="fw-semibold mt-5">Most Popular</h4>
+      <div
+        class="mt-5 d-flex flex-wrap justify-content-between p-4 align-items-center"
+      >
+        <h4 class="fw-semibold mt-2">Most Popular</h4>
+        <ButtonCustom
+          class="d-flex align-items-center"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
+        >
+          <i class="fa-solid fa-filter"></i>
+          <div class="ms-1 fs-5">filtre</div>
+        </ButtonCustom>
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog">
+            <div class="modal-content bg-dark">
+              <transition>
+                <div class="P-4">
+                  <FiltreSection />
+                </div>
+              </transition>
+            </div>
+          </div>
+        </div>
+      </div>
       <div class="gap-5 mt-4 d-flex flex-wrap justify-content-center">
         <MovieCard
           v-for="(movie, index) in movies[currentPage]"
@@ -48,6 +76,8 @@
           "
         />
       </div>
+
+      <!-- Pagination i want to make in a signle component but time -_- -->
       <div class="pagination-container mt-5">
         <ul class="pagination">
           <li class="page-item">
@@ -111,6 +141,8 @@
 import BestRating from "@/components/BestRating/BestRating.vue";
 import MovieCard from "@/components/MovieCard/MovieCard.vue";
 import axios from "axios";
+import ButtonCustom from "@/components/ButtonCustom/ButtonCustom.vue";
+import FiltreSection from "@/components/FiltreSection/FiltreSection.vue";
 
 export default {
   data() {
@@ -125,8 +157,12 @@ export default {
   components: {
     BestRating,
     MovieCard,
+    ButtonCustom,
+    FiltreSection,
   },
   created() {
+    if (!localStorage.getItem("WatchList"))
+      localStorage.setItem("WatchList", JSON.stringify({}));
     this.getData();
   },
   watch: {
@@ -134,21 +170,21 @@ export default {
       this.getData();
     },
     $route() {
-        this.searchFor = this.$route.query.search;
-        this.SearchforMovie();
-    }
+      this.searchFor = this.$route.query.search;
+      this.SearchforMovie();
+    },
   },
   methods: {
     async SearchforMovie() {
+      
       await axios
         .get(
-          'https://api.themoviedb.org/3/search/movie?api_key=c3995fba79fbed18d0cfdab2ef0845ff&query=' + this.searchFor
+          "https://api.themoviedb.org/3/search/movie?api_key=" + process.env.VUE_APP_API_KEY + "&query=" +
+            this.searchFor
         )
         .then((response) => {
-          console.log(response);
-          for (let i = 0; i < response.data.results.length ; i++) {
-            if ( response.data.results[i].poster_path)
-            {
+          for (let i = 0; i < response.data.results.length; i++) {
+            if (response.data.results[i].poster_path) {
               this.searchResult.push({
                 imgUrl:
                   "https://image.tmdb.org/t/p/original/" +
@@ -159,7 +195,8 @@ export default {
               });
             }
           }
-        }).catch((err) => {
+        })
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -196,7 +233,7 @@ export default {
         this.movies[this.currentPage] = [];
         await axios
           .get(
-            "http://api.themoviedb.org/3/movie/popular?api_key=c3995fba79fbed18d0cfdab2ef0845ff&page=" +
+            "http://api.themoviedb.org/3/movie/popular?api_key=" + process.env.VUE_APP_API_KEY + "&page=" +
               this.currentPage
           )
           .then((response) => {
@@ -233,7 +270,6 @@ main {
   align-items: center;
   text-align: center;
 
-
   .pagination {
     background: rgba(137, 144, 164, 0.2);
     margin-bottom: 0;
@@ -256,5 +292,14 @@ main {
 }
 .activepage {
   background: var(--fire-brick) !important;
+}
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 </style>
