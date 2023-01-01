@@ -1,16 +1,55 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bootstrap w/ Webpack</title>
-    <link rel="stylesheet" href="../src/scss/style.css">
   </head>
   <body>
-    <div class="container py-4 px-3 mx-auto">
-      <h1>Hello, Bootstrap and Webpack!</h1>
-      <button class="btn btn-primary">Primary button</button>
-    </div>
-    <script src="./main.js"></script>
+    <header class="d-flex justify-content-around align-items-center">
+      <div class="HeaderBg"></div>
+      <div class="card col-10 col-md-8 col-lg-6 p-2 p-md-3">
+        <div class="card-body">
+          <h2 class="card-title fw-bold">
+            What is Your Roseville Home Worth Now?
+          </h2>
+          <p class="card-text my-3">
+            Recent home sales have affected your home’s value! Get your home’s
+            new value estimate instantly for free!
+          </p>
+          <form class="row gap-2 px-2" role="search">
+            <input
+              class="form-control col"
+              type="search"
+              placeholder="Enter your home address"
+              aria-label="Search"
+            />
+            <button
+              class="btn btn-primary fw-bold col-12 col-md-5"
+              type="submit"
+            >
+              Get value estimate
+              <img src="./Icons/icon-arrow.svg" alt="Right-Arrow-Icon" />
+            </button>
+          </form>
+        </div>
+      </div>
+    </header>
+    <article>
+      <h4 class="fw-bold">Discover the value of your property</h4>
+      <div>
+        <div class="card" style="width: 18rem">
+          <img src="..." class="card-img-top" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">
+              Some quick example text to build on the card title and make up the
+              bulk of the card's content.
+            </p>
+          </div>
+        </div>
+      </div>
+    </article>
+    <script src="./main.js" async></script>
   </body>
 </html>
