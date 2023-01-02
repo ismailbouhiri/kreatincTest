@@ -1,7 +1,6 @@
 // here we can customize our color for bootstrap +_+
 $primary: #2f6e49;
 @import "~bootstrap/scss/bootstrap";
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap");
 
 body {
   font-family: "Lato", black;
@@ -16,11 +15,11 @@ header {
     width: 100%;
     height: 462px;
     position: relative;
-    
   }
-  .card{
+  .card {
     border-radius: 10px;
     position: absolute;
+    z-index: 99;
     img {
       width: 1rem;
       height: 1rem;
@@ -30,8 +29,43 @@ header {
     .card {
       top: 7rem;
     }
-    .HeaderBg{
+    .HeaderBg {
       height: 10rem;
     }
   }
 }
+.mainPage {
+  @media (max-width: 576px) {
+    position: relative;
+    top: 18rem;
+  }
+
+  .properties {
+    .card {
+      border: none;
+      img {
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+  }
+
+
+  .booking {
+    .card-body {
+      font-size: 16px;
+      ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        li {
+          padding: 0em 0 0px 30px;
+          background-image: url('../../dist/Icons/icon-check.svg');
+          background-repeat: no-repeat;
+          background-position: left;
+        }
+      }
+    }
+  }
+}
+

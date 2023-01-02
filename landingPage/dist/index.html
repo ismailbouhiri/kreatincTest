@@ -3,6 +3,13 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap"
+      rel="stylesheet"
+    />
+
     <title>Bootstrap w/ Webpack</title>
   </head>
   <body>
@@ -35,21 +42,84 @@
         </div>
       </div>
     </header>
-    <article>
-      <h4 class="fw-bold">Discover the value of your property</h4>
-      <div>
-        <div class="card" style="width: 18rem">
-          <img src="..." class="card-img-top" alt="..." />
-          <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">
-              Some quick example text to build on the card title and make up the
-              bulk of the card's content.
-            </p>
+    <main class="container mainPage">
+      <article class="properties my-5">
+        <h4 class="fw-semibold">Discover the value of your property</h4>
+        <div class="row">
+          <div class="card border-none col-12 col-md-4 p-2">
+            <div class="card-body ps-0">
+              <img src="./Icons/icon-track.svg" alt="track icon" />
+              <h5 class="card-title my-3 fw-semibold">
+                Track your home’s value
+              </h5>
+              <p class="card-text">
+                Instantly learn your home’s value and how much you could sell
+                for in today’s market.
+              </p>
+            </div>
+          </div>
+          <div class="card border-none col-12 col-md-4 p-2">
+            <div class="card-body ps-0">
+              <img src="./Icons/icon-trends.svg" alt="trends icon" />
+              <h5 class="card-title my-3 fw-semibold">
+                See local market trends
+              </h5>
+              <p class="card-text">
+                Stay up to date on market changes and find out how much homes
+                like yours have sold in the past year.
+              </p>
+            </div>
+          </div>
+          <div class="card border-none col-12 col-md-4 p-2">
+            <div class="card-body ps-0">
+              <img src="./Icons/icon-report.svg" alt="report icon" />
+              <h5 class="card-title my-3 fw-semibold">
+                Get a free monthly home report
+              </h5>
+              <p class="card-text">
+                Receive a monthly email with updates about your home value and
+                how it’s changing.
+              </p>
+            </div>
           </div>
         </div>
-      </div>
-    </article>
+      </article>
+      <article class="booking">
+        <div class="card bg-primary p-4 my-5">
+          <div class="row ">
+            <div class="col-md-5">
+              <div class="card-body text-white">
+                <h5 class="card-title fw-bold">Book an in-person valuation</h5>
+                <p class="card-text">
+                  Get the most accurate valuation based on:
+                </p>
+                <ul class="mt-4">
+                  <li class="my-2">Your unique property features</li>
+                  <li class="my-2">Our knowledge of the area</li>
+                  <li class="my-2 mb-4">The latest changes in the local market</li>
+                </ul>
+                <button
+                  class="btn bg-white text-primary fw-bold py-2 px-3 col-12 col-md-7"
+                  type="submit"
+                >
+                Book now
+                  <img src="./Icons/icon-arrow_green.svg" class="ms-1" alt="Right-Arrow-Icon" />
+                </button>
+              </div>
+            </div>
+            <div
+              class="col-7 d-md-flex d-none align-items-center justify-content-center"
+            >
+              <img
+                src="./Icons/illustration.svg"
+                class="img-fluid rounded-start"
+                alt="House img"
+              />
+            </div>
+          </div>
+        </div>
+      </article>
+    </main>
     <script src="./main.js" async></script>
   </body>
 </html>
