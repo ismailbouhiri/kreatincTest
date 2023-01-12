@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg bg-orange text-light mynav">
+  <nav class="navbar navbar-expand-lg  text-light mynav">
     <div class="container-fluid">
       <img src="../../assets/film.png" class="m-2" alt="Brand logo" />
       <button
@@ -98,6 +98,7 @@ export default {
   }
 }
 .mynav{
+  background-color: #caaa03;
   border-bottom: 2px solid white;;
 }
 </style>
