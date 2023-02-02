@@ -4,7 +4,7 @@ Assessment Test: For the Position of VueJs Front-End Developer at Kreatinc
 ## Description:
 ### MovieDb:
 
-first project is simple replica of the famous movies website: https://www.imdb.com/.
+this is simple replica of the famous movies website: https://www.imdb.com/.
 
 The stack being used is Vue.js and Bootstrap with Sass for personal styling.
 
